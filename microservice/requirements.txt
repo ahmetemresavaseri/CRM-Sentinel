@@ -1,0 +1,10 @@
+fastapi~=0.118.0
+uvicorn[standard]~=0.37.0
+pydantic~=2.11.7
+
+# Semantic embeddings (Phase 2)
+sentence-transformers>=2.2.2
+# CPU-only PyTorch (much smaller download for deployment)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0
+numpy>=1.24.0

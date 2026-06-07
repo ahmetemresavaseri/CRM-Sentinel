@@ -1,0 +1,83 @@
+note_id,client_id,note_text,note_date,linked_transaction_id
+N0001,CL000001,Client requested status update on the recent incoming payment from Omega Capital. Amount CHF 10.4k processed successfully.,2025-07-12,TR00000004
+N0002,CL000001,Long-term asset allocation review. Client interested in increasing alternatives exposure. Exploring private equity opportunities.,2025-03-08,
+N0003,CL000001,Client requested confirmation on an incoming payment of approximately CHF 8.0k from Omega Financial GmbH. Everything processed correctly.,2025-05-15,TR00000179
+N0004,CL000001,Client inquiry regarding an incoming transfer. Amount CHF 20.1k from Elite Asset GmbH. Status confirmed as completed.,2025-01-20,TR00000084
+N0005,CL000001,Client raised concerns about geopolitical risks. Reviewed portfolio stress tests. Comfortable with current diversification.,2025-04-07,
+N0006,CL000001,Annual relationship review scheduled for next month. Client requested detailed fee breakdown and performance attribution. Preparing materials.,2025-09-23,
+N0007,CL000001,Annual regulatory reporting completed. Client copy sent via secure delivery. No questions or concerns raised.,2025-07-12,
+N0008,CL000001,Estate planning consultation. Client working with legal counsel on trust structure. May impact account setup in 6-8 months.,2024-10-21,
+N0009,CL000001,Long-term asset allocation review. Client interested in increasing alternatives exposure. Exploring private equity opportunities.,2024-11-11,
+N0010,CL000001,Discussed upcoming incoming payment from Premier Commerce Group for approximately CHF 167. Client confirmed details and requested execution on 28 Jan.,2025-01-27,TR00000101
+N0011,CL000001,Client traveling to Asia for 3 weeks. Updated contact preferences and emergency contacts. All communication via secure email only.,2025-06-25,
+N0012,CL000001,Estate planning consultation. Client working with legal counsel on trust structure. May impact account setup in 6-8 months.,2025-05-30,
+N0013,CL000001,Telephone instruction received for approximately CHF 1.7k incoming payment. Beneficiary: Beta Trade Limited. Client authenticated via dual control. Executing 17 Sep.,2025-09-19,TR00000248
+N0014,CL000001,Follow-up on outgoing payment to Beta Wealth Trading. Client verified the approximately CHF 3.0k transfer and provided final authorization.,2025-02-21,TR00000113
+N0015,CL000001,Annual relationship review scheduled for next month. Client requested detailed fee breakdown and performance attribution. Preparing materials.,2025-07-03,
+N0016,CL000001,Client called regarding general account access issues. Resolved MFA setup problem. No transactions discussed.,2025-08-04,
+N0017,CL000001,Discussed upcoming incoming payment from Beta Investments for approximately CHF 9.2k. Client confirmed details and requested execution on 12 Jul.,2025-07-12,TR00000005
+N0018,CL000001,Follow-up call regarding an incoming payment of CHF 10.2k from Omega Group. Client satisfied with execution.,2024-12-15,TR00000058
+N0019,CL000001,Annual KYC refresh completed. Updated employment details and income sources. No material changes to risk assessment.,2025-04-23,
+N0020,CL000001,Follow-up call regarding an incoming payment of approximately CHF 1.9k to Beta Trading. Client confirmed all details.,2024-10-31,TR00000020
+N0021,CL000001,"Detailed review of incoming payment arrangement with United Trading. Amount: CHF 172,  scheduled 14 Dec. Client requested email confirmation post-execution.",2024-12-13,TR00000064
+N0022,CL000001,Annual relationship review scheduled for next month. Client requested detailed fee breakdown and performance attribution. Preparing materials.,2025-07-12,
+N0023,CL000001,Discussed upcoming changes to fee structure. Client acknowledged and had no concerns. Sent follow-up email with detailed breakdown.,2024-11-15,
+N0024,CL000001,Client requested status update on an outgoing payment of approximately CHF 1.2k to First Wealth Investments. Processing completed successfully.,2025-02-15,TR00000121
+N0025,CL000001,Annual KYC refresh completed. Updated employment details and income sources. No material changes to risk assessment.,2024-11-02,
+N0026,CL000001,Client requested access to enhanced online reporting platform. Arranged demo with digital banking team for next week.,2025-06-22,
+N0027,CL000001,Tax optimization discussion ahead of year-end. Client working with tax advisor. May see portfolio restructuring in December.,2025-06-20,
+N0028,CL000001,Follow-up call regarding an outgoing payment of approximately CHF 9.6k to Beta Limited. Client satisfied with execution.,2025-07-24,TR00000202
+N0029,CL000001,"Client signature verification for new mandate. Documents returned,  currently in processing. Expected completion within 5 business days.",2025-09-29,
+N0030,CL000001,Succession planning discussion. Client considering gradual wealth transfer to next generation. Referred to trust and estate specialists.,2025-06-14,
+N0031,CL000001,Quarterly portfolio review completed. Client overall satisfied with performance. Discussed potential rebalancing in Q4. No immediate actions required.,2025-06-30,
+N0032,CL000001,Discussed upcoming changes to fee structure. Client acknowledged and had no concerns. Sent follow-up email with detailed breakdown.,2025-02-07,
+N0033,CL000001,Client traveling to Asia for 3 weeks. Updated contact preferences and emergency contacts. All communication via secure email only.,2025-07-29,
+N0034,CL000001,Confirmed details for incoming payment: approximately CHF 1.7k from Beta Trade Limited. Client satisfied with execution timeline.,2025-09-19,TR00000248
+N0035,CL000001,Quarterly portfolio review completed. Client overall satisfied with performance. Discussed potential rebalancing in Q4. No immediate actions required.,2025-04-29,
+N0036,CL000001,"Detailed review of outgoing payment arrangement with Alpha Financial Limited. Amount: approximately CHF 3.2k,  scheduled 19 Aug. Client requested email confirmation post-execution.",2025-08-21,TR00000220
+N0037,CL000001,Client inquiry about sustainable investment options. Sent ESG portfolio framework document. Follow-up call scheduled.,2025-03-10,
+N0038,CL000001,Follow-up call regarding an outgoing payment of approximately CHF 3.0k to Beta Wealth Trading. Client satisfied with execution.,2025-02-22,TR00000113
+N0039,CL000001,"Client signature verification for new mandate. Documents returned,  currently in processing. Expected completion within 5 business days.",2025-09-08,
+N0040,CL000001,Telephone instruction received for CHF 11.1k incoming payment. Beneficiary: Prime Wealth Corp. Client authenticated via dual control. Executing 21 Nov.,2024-11-21,TR00000048
+N0041,CL000001,Received standing instruction for approximately CHF 1.2k outgoing payment to First Wealth Investments. Scheduled for 15 Feb. Client confirmed via secure message.,2025-02-15,TR00000121
+N0042,CL000001,Annual KYC refresh completed. Updated employment details and income sources. No material changes to risk assessment.,2025-08-06,
+N0043,CL000001,Confirmed details for outgoing payment: approximately CHF 9.6k to Beta Limited. Client satisfied with execution timeline.,2025-07-24,TR00000202
+N0044,CL000001,Discussed potential currency hedging strategy given CHF strength. Client wants to wait and monitor. Scheduled review for next quarter.,2025-04-07,
+N0045,CL000001,Processing incoming payment per client instruction. Counterparty: Omega Group. Amount: CHF 10.2k. Settlement 15 Dec.,2024-12-14,TR00000058
+N0046,CL000001,Annual relationship review scheduled for next month. Client requested detailed fee breakdown and performance attribution. Preparing materials.,2025-06-30,
+N0047,CL000001,Succession planning discussion. Client considering gradual wealth transfer to next generation. Referred to trust and estate specialists.,2025-04-29,
+N0048,CL000001,Client traveling to Asia for 3 weeks. Updated contact preferences and emergency contacts. All communication via secure email only.,2025-05-23,
+N0049,CL000001,Annual relationship review scheduled for next month. Client requested detailed fee breakdown and performance attribution. Preparing materials.,2025-05-17,
+N0050,CL000001,Long-term asset allocation review. Client interested in increasing alternatives exposure. Exploring private equity opportunities.,2025-06-12,
+N0051,CL000001,Client meeting notes: Discussed outgoing payment for approximately CHF 1.0k. Counterparty International Capital approved by compliance. Processing timeline confirmed.,2025-02-18,TR00000111
+N0052,CL000001,Follow-up call regarding the incoming payment of CHF 167 from Premier Commerce Group. Client satisfied with execution.,2025-01-30,TR00000101
+N0053,CL000001,Quarterly portfolio review completed. Client overall satisfied with performance. Discussed potential rebalancing in Q1. No immediate actions required.,2024-11-08,
+N0054,CL000001,Received standing instruction for CHF 530 incoming payment from United Holdings. Scheduled for 18 Nov. Client confirmed via secure message.,2024-11-19,TR00000026
+N0055,CL000001,Tax optimization discussion ahead of year-end. Client working with tax advisor. May see portfolio restructuring in December.,2025-08-16,
+N0056,CL000001,Telephone instruction received for approximately CHF 1.9k incoming payment. Beneficiary: Omega Group. Client authenticated via dual control.,2024-12-13,TR00000067
+N0057,CL000001,Annual regulatory reporting completed. Client copy sent via secure delivery. No questions or concerns raised.,2024-12-05,
+N0058,CL000001,Discussed potential currency hedging strategy given CHF strength. Client wants to wait and monitor. Scheduled review for next quarter.,2024-12-03,
+N0059,CL000001,Client called regarding general account access issues. Resolved MFA setup problem. No transactions discussed.,2025-06-13,
+N0060,CL000001,Follow-up on incoming payment to Omega Financial GmbH. Client verified the approximately CHF 8.0k transfer and provided final authorization.,2025-05-12,TR00000179
+N0061,CL000001,Updated beneficial owner information per client notification. Compliance review in progress. Account fully operational.,2025-04-18,
+N0062,CL000001,Client requested access to enhanced online reporting platform. Arranged demo with digital banking team for next week.,2024-12-26,
+N0063,CL000001,Long-term asset allocation review. Client interested in increasing alternatives exposure. Exploring private equity opportunities.,2025-01-31,
+N0064,CL000001,Discussed upcoming regulatory changes to cross-border reporting. Client acknowledged requirements. No concerns raised.,2025-06-06,
+N0065,CL000001,Discussed upcoming regulatory changes to cross-border reporting. Client acknowledged requirements. No concerns raised.,2025-02-20,
+N0066,CL000001,Discussed upcoming changes to fee structure. Client acknowledged and had no concerns. Sent follow-up email with detailed breakdown.,2025-01-16,
+N0067,CL000001,Follow-up call regarding the incoming payment of CHF 172 from United Trading. Client satisfied with execution.,2024-12-15,TR00000064
+N0068,CL000001,Confirmed details for outgoing payment: approximately CHF 15.9k to International Financial AG. Client satisfied with execution timeline.,2024-12-12,TR00000057
+N0069,CL000001,Annual relationship review scheduled for next month. Client requested detailed fee breakdown and performance attribution. Preparing materials.,2025-08-19,
+N0070,CL000001,Discussed upcoming outgoing payment to Omega Holdings for approximately CHF 4.0k. Client confirmed details and requested execution.,2025-05-28,TR00000172
+N0071,CL000001,"Client submitted transfer request: International Financial AG,  CHF 15.9k,  outgoing. Compliance approved,  executing shortly.",2024-12-10,TR00000057
+N0072,CL000001,"Detailed review of outgoing payment arrangement with Global Trade GmbH. Amount: approximately CHF 1.3k,  scheduled 12 Feb. Client requested email confirmation post-execution.",2025-02-11,TR00000119
+N0073,CL000001,Client inquiry regarding outgoing transfer of approximately CHF 4.0k to Omega Holdings. Status confirmed as completed.,2025-05-28,TR00000172
+N0074,CL000001,Discussed potential currency hedging strategy given CHF strength. Client wants to wait and monitor. Scheduled review for next quarter.,2025-06-02,
+N0075,CL000001,Long-term asset allocation review. Client interested in increasing alternatives exposure. Exploring private equity opportunities.,2025-03-08,
+N0076,CL000001,Follow-up call regarding outgoing payment of approximately CHF 1.0k to International Capital. Client satisfied with execution timeline.,2025-02-19,TR00000111
+N0077,CL000001,Client raised concerns about geopolitical risks. Reviewed portfolio stress tests. Comfortable with current diversification.,2025-04-21,
+N0078,CL000001,Client discussed two incoming payments from Omega Capital on the same day totalling CHF 16.5k. Both transactions processed successfully.,2025-07-12,TR00000004|TR00000002
+N0079,CL000001,Batch payment instruction received: one transfer of approximately CHF 5.1k to International Investments and another of CHF 2.0k to First Partners. Client authorized same-day settlement.,2025-07-13,TR00000001|TR00000003
+N0080,CL000001,Follow-up on two small outgoing payments to International Limited and Beta Capital (CHF 1.1k and CHF 562). Part of portfolio rebalancing.,2024-10-11,TR00000011|TR00000012
+N0081,CL000001,Client discussed two outgoing payments to wealth managers: Beta Wealth Trading (CHF 3.0k) and First Wealth Investments (CHF 1.2k). Confirmed execution dates.,2025-02-20,TR00000113|TR00000121
+N0082,CL000001,Client review of three incoming payments from Omega Group and United Trading totalling CHF 12.4k. Consolidated overview completed.,2024-12-15,TR00000058|TR00000064|TR00000067

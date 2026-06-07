@@ -1,0 +1,50 @@
+image:
+  repository: null
+  tag: latest
+  # cmd: ["your_cmd"]
+  # args: ["an", "array", "of", "values"]
+
+# Port to expose on the pod (matching microservice port)
+port: 5173
+
+# Path for health check
+health: "/health"
+
+# Resource limits and requests for the microservice pod
+# Adjusted for ML model (sentence-transformers requires more memory)
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "250m"
+  limits:
+    memory: "2Gi"
+    cpu: "1000m"
+
+# Readiness and liveness probe configuration
+# Increased initialDelaySeconds for model loading time
+readinessProbe: |
+  httpGet:
+    path: {{ .Values.health }}
+    port: {{ .Values.port }}
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
+  successThreshold: 1
+
+livenessProbe: |
+  httpGet:
+    path: {{ .Values.health }}
+    port: {{ .Values.port }}
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 5
+  successThreshold: 1
+
+# Define extra environment variables for your application
+# CORS origins for production
+extraEnv:
+  CORS_ORIGINS: "https://app.fwe25.ivia.ch,http://localhost:3000"
+
+url: null

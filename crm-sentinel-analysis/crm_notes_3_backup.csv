@@ -1,0 +1,63 @@
+note_id,client_id,note_text,note_date,linked_transaction_id
+N0200,CL000003,Client requested overview of recent January account activity. No immediate concerns raised.,2025-01-18,
+N0201,CL000003,Discussed upcoming outgoing wire expected late January. Client confirmed beneficiary details and purpose.,2025-01-20,TR00000530
+N0202,CL000003,Confirmed receipt of incoming CHF transfer from Prime Holdings. Routine confirmation provided.,2025-01-20,TR00000527
+N0203,CL000003,Client notified bank of planned cash withdrawals over several days. Purpose explained and acknowledged.,2025-01-21,
+N0204,CL000003,Reviewed multiple mid-January account movements. Client comfortable with balances and liquidity.,2025-01-22,
+N0205,CL000003,Discussed incoming wire from Elite Partners. Client confirmed commercial background.,2025-01-21,TR00000532
+N0206,CL000003,Follow-up on outgoing wire to Prime Group. Client verified amount and execution timing.,2025-01-19,TR00000536
+N0207,CL000003,Client raised question regarding recent debit related to Global GmbH. Clarified booking and charges.,2025-01-19,TR00000538
+N0208,CL000003,Confirmed receipt of incoming wire from United AG. Client satisfied with processing.,2025-01-23,TR00000540
+N0209,CL000003,General portfolio discussion. Client expressed preference to keep conservative allocation in Q1.,2025-01-25,
+N0210,CL000003,Client contacted bank regarding older USD credit from First Group. Confirmed booking.,2024-10-30,TR00000542
+N0211,CL000003,Quarterly portfolio review completed. Performance and positioning discussed. No changes agreed.,2024-10-31,
+N0212,CL000003,Client requested clarification on a small debit related to Elite Wealth Trading. Explained and closed.,2024-10-14,TR00000544
+N0213,CL000003,Confirmed incoming GBP wire from Beta Partners. Client acknowledged receipt.,2024-10-26,TR00000545
+N0214,CL000003,Reviewed security-related debit to International Holdings. Client confirmed transaction intent.,2024-10-29,TR00000546
+N0215,CL000003,Client informed bank of expected small international credits in October. No action required.,2024-10-15,
+N0216,CL000003,Follow-up on incoming wire from Elite GmbH. Client satisfied with processing timeline.,2024-10-17,TR00000547
+N0217,CL000003,Discussed multiple small October transactions. Client had no concerns.,2024-10-31,
+N0218,CL000003,Confirmed debit related to Prime Holdings. Client acknowledged charges and value date.,2024-10-31,TR00000550
+N0219,CL000003,Annual KYC refresh completed. No material changes to profile or risk assessment.,2024-11-05,
+N0220,CL000003,Reviewed incoming USD security credit from Omega AG. Client confirmed understanding.,2024-11-16,TR00000564
+N0221,CL000003,Client requested explanation of cash movements in November. Clarified and closed.,2024-11-24,
+N0222,CL000003,Confirmed outgoing EUR wire to Prime Trade Limited. Execution confirmed.,2024-12-01,TR00000569
+N0223,CL000003,Follow-up on debit related to Beta Wealth GmbH. Client confirmed transaction.,2024-12-02,TR00000571
+N0224,CL000003,Client informed bank of expected year-end transfers and liquidity needs.,2024-12-10,
+N0225,CL000003,Confirmed receipt of cheque credit from United Trade Trading. Client satisfied.,2024-12-02,TR00000585
+N0226,CL000003,Discussed December account activity. No discrepancies identified.,2024-12-15,
+N0227,CL000003,Client requested confirmation of cash credit from Premier Investments. Confirmed.,2024-12-16,TR00000588
+N0228,CL000003,Reviewed early January cash inflow from United Holdings. Client acknowledged.,2025-01-03,TR00000589
+N0229,CL000003,Client asked about debit to Premier AG. Clarified purpose and timing.,2024-12-14,TR00000590
+N0230,CL000003,Confirmed incoming wire from First Partners. Routine confirmation.,2025-01-04,TR00000599
+N0231,CL000003,Reviewed mid-January security debit. Client comfortable with investment rationale.,2025-01-11,TR00000597
+N0232,CL000003,Client requested overview of January security credits. Discussed and closed.,2025-01-15,
+N0233,CL000003,Confirmed incoming wire from United Group. Client satisfied.,2025-01-26,TR00000606
+N0234,CL000003,Discussed debit related to Alpha Partners. Client confirmed instruction.,2025-03-01,TR00000629
+N0235,CL000003,Quarterly portfolio review completed. Discussed diversification and risk exposure.,2025-03-15,
+N0236,CL000003,Client inquired about multiple March debits. Reviewed and confirmed accuracy.,2025-03-27,
+N0237,CL000003,Confirmed outgoing wire to Prime Corp. Execution details acknowledged.,2025-03-26,TR00000639
+N0238,CL000003,Client satisfied with incoming wire from Premier AG. No further action.,2025-04-04,TR00000656
+N0239,CL000003,Discussed April security debits. Client acknowledged long-term positioning.,2025-04-21,
+N0240,CL000003,Confirmed outgoing cheque debit to Alpha GmbH. Client acknowledged.,2025-04-07,TR00000660
+N0241,CL000003,Reviewed incoming wire from Prime GmbH. Client satisfied with processing.,2025-04-07,TR00000661
+N0242,CL000003,Client requested clarification on multiple small April cash movements.,2025-04-20,
+N0243,CL000003,Confirmed outgoing security debit to Global Capital. Client acknowledged.,2025-04-19,TR00000669
+N0244,CL000003,Client discussed expected May activity and liquidity planning.,2025-05-01,
+N0245,CL000003,Confirmed incoming wire from International Partners. Routine confirmation.,2025-05-05,TR00000678
+N0246,CL000003,Reviewed debit related to First Trade Capital. Client confirmed purpose.,2025-05-23,TR00000687
+N0247,CL000003,Client satisfied with May account activity summary.,2025-05-31,
+N0248,CL000003,Confirmed receipt of incoming wire from Omega Financial Partners. Client acknowledged.,2025-06-14,TR00000698
+N0249,CL000003,Discussed June security credits. No concerns raised.,2025-06-18,
+N0250,CL000003,Quarterly review completed. Client comfortable with current allocations.,2025-06-30,
+N0251,CL000003,Confirmed debit related to Omega Group security transaction. Client acknowledged.,2025-06-23,TR00000704
+N0252,CL000003,Client notified bank of upcoming travel in July. Contact preferences updated.,2025-07-01,
+N0253,CL000003,Confirmed incoming wire from Alpha Partners. Client satisfied.,2025-07-18,TR00000733
+N0254,CL000003,Reviewed July account activity. No discrepancies noted.,2025-07-31,
+N0255,CL000003,Confirmed outgoing wire to Prime GmbH. Execution completed as instructed.,2025-08-29,TR00000738
+N0256,CL000003,Client requested clarification on August cash withdrawals. Explained and closed.,2025-08-16,
+N0257,CL000003,Confirmed incoming security credit from First Limited. Client acknowledged.,2025-08-17,TR00000737
+N0258,CL000003,Reviewed August activity ahead of month-end. Client satisfied.,2025-08-31,
+N0259,CL000003,Client preparing for Q4 planning discussion. Requested performance overview.,2025-09-10,
+N0260,CL000003,Confirmed incoming wire from Prime Financial Partners. Routine confirmation.,2025-09-23,TR00000758
+N0261,CL000003,End-of-period relationship review completed. Client comfortable with service level.,2025-09-30,

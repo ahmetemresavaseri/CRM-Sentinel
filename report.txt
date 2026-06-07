@@ -1,0 +1,285 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%% Standard Packages
+\usepackage{mathptmx}           % Times font for body
+\usepackage{helvet}             % Helvetica for sans-serif
+\usepackage{graphicx}           % For images
+\usepackage{url}
+\usepackage{titlesec}           % To format headings
+\usepackage{caption}            % To format captions
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}           % For better lists
+\usepackage{booktabs}           % For nicer tables
+
+%% 1. SIZE AND MARGINS
+\usepackage[
+    top=0.75in,
+    bottom=1.0in,
+    left=0.75in,
+    right=0.75in,
+    columnsep=0.34in
+]{geometry}
+
+%% 2. TITLE FORMATTING
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \begin{minipage}[c]{0.80\columnwidth}
+    \raggedright
+    \sffamily\bfseries\huge
+    \@title
+    \par
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{0.15\columnwidth}
+    \includegraphics[width=\linewidth]{favicon.png} 
+  \end{minipage}
+
+  \vspace{0.5in} 
+
+  \large\sffamily \@author
+\end{flushleft}
+\egroup \vspace{0.3in}}
+\makeatother
+
+%% 3. HEADING FORMATTING
+\titleformat{\section}
+  {\normalfont\sffamily\bfseries\scshape}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\sffamily\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\sffamily\bfseries\itshape}{\thesubsubsection}{1em}{}
+
+%% 4. CAPTION FORMATTING
+\DeclareCaptionFont{vgtccap}{\sffamily\fontsize{8}{9.6}\selectfont}
+\captionsetup{font=vgtccap, labelfont=bf}
+
+%% 5. ABSTRACT FORMATTING
+\renewenvironment{abstract}
+{\small\bfseries\sffamily\noindent ABSTRACT\par\normalfont\rmfamily}
+{\vspace{0.2in}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CONTENT STARTS HERE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{CRM Sentinel: Privacy-First Transaction Mapping and AML Detection}
+
+\author{
+Ahmet Savaseri, Gian Paredes, Julius Rasner, Timo Baumberger \\
+\textit{CRM Sentinel Team} \\
+}
+
+\date{} 
+
+\maketitle
+
+%% COPYRIGHT SPACE
+\begin{figure}[b]
+\parbox{\columnwidth}{\vspace{0.5in} \scriptsize \copyright\ 2025 CRM Sentinel. Personal use of this material is permitted. Permission from the authors must be obtained for all other uses.}
+\end{figure}
+
+\begin{abstract}
+Financial institutions face a massive data asymmetry: millions of quantitative transactions are processed daily, while qualitative CRM notes—which provide the crucial context for these movements—are generated in the thousands by different relationship managers. When an Anti-Money Laundering (AML) alert is triggered, compliance teams currently face the resource-intensive task of manually sifting through thousands of unlinked notes from various CRMs to verify legitimacy. This process is slow, prone to error, and hampers collaboration between CRM and AML units.
+
+\textbf{CRM Sentinel} automates this bottleneck. By using a specialized, privacy-first NLP engine, the system automatically maps relevant notes to the specific transactions that triggered an AML alert. This consolidates all necessary data into a single tool, streamlining cooperation between departments, reducing investigation time, and ensuring high-precision compliance without compromising data privacy.
+\end{abstract}
+
+%% Keywords
+
+\section{Introduction and Problem Statement}
+
+The core challenge in modern banking compliance is not just detection, but context verification at scale. With millions of transactions occurring daily, statistical anomalies are inevitable. However, distinguishing a legitimate anomaly from financial crime requires qualitative context.
+
+\subsection{The Scalability Crisis}
+Customer Relationship Managers (CRMs) generate hundreds of notes daily regarding client instructions, mandates, and meetings. These notes are the "truth" behind the money. However, they are unstructured and disconnected from the transaction ledger.
+
+When a suspicious pattern emerges—such as "Smurfing" (structuring payments)—AML teams are forced into a manual investigation. They must:
+\begin{enumerate}
+    \item Identify the suspicious transactions.
+    \item Contact the specific CRM responsible for that client.
+    \item Ask the CRM to manually search through weeks of notes to find a justification.
+\end{enumerate}
+This workflow is inefficient and unsustainable given the sheer volume of data. It creates friction between the AML team (who need answers fast) and the CRM team (who are focused on client service).
+
+\subsection{The Constraints of AI in Banking}
+To bridge this gap, automation is required. However, the standard approach of using cloud-based Generative AI (LLMs) is often non-viable for Swiss and international banks due to two factors:
+\begin{enumerate}
+    \item \textbf{Data Privacy:} Sending client names and transaction histories to third-party API providers (like OpenAI or Anthropic) violates strict banking secrecy laws.
+    \item \textbf{Hardware Requirements:} Running enterprise-grade LLMs on-premise requires massive clusters of high-end GPUs, which represents a prohibitive infrastructure cost.
+\end{enumerate}
+
+\section{Project Goals and Scope}
+
+CRM Sentinel aims to solve these issues by providing a lightweight, privacy-first alternative.
+\begin{enumerate}
+    \item \textbf{Unified Collaboration:} To bring AML and CRM data into a single view, eliminating the back-and-forth communication overhead.
+    \item \textbf{Automated Context:} To use NLP to instantly surface the specific note that explains a specific alert.
+    \item \textbf{Privacy by Design:} To utilize optimized in-house NLP algorithms that can run on standard bank servers without external APIs.
+\end{enumerate}
+
+\section{System Architecture: Data Ingestion}
+
+To maximize compatibility with legacy banking infrastructure, CRM Sentinel utilizes a bulk ingestion pipeline based on strict CSV schemas. This ensures that historical data can be analyzed immediately upon deployment.
+
+\subsection{Data Specifications}
+The system enforces rigid formatting to ensure the integrity of the downstream analysis. (See Figure \ref{fig:upload}).
+
+\subsubsection{Client Database}
+The backbone of the system connects financial entities to their risk profiles.
+\begin{itemize}
+    \item \textbf{Required Fields:} \texttt{Client\_ID}.
+    \item \textbf{Compliance Fields:} \texttt{Risk\_Rating} (Low/Med/High), \texttt{AUM} (Assets Under Management), \texttt{Domicile}, and \texttt{Nationality}.
+    \item \textbf{Counterparty Whitelisting:} The \texttt{Declared\_Counterparties} field accepts a semicolon-separated string (e.g., "Alpha AG;Beta Ltd"). This allows the NLP engine to recognize known business partners.
+\end{itemize}
+
+\subsubsection{Transaction Ledger}
+The quantitative stream representing the "ground truth" of money movement.
+\begin{itemize}
+    \item \textbf{Required Fields:} \texttt{Client\_ID}, \texttt{Date} (YYYY-MM-DD), \texttt{Amount\_(CHF)}.
+    \item \textbf{Format:} Amounts must be decimal numbers with dot separators (e.g., 10000.50).
+\end{itemize}
+
+\subsubsection{CRM Notes}
+The qualitative stream containing unstructured human text.
+\begin{itemize}
+    \item \textbf{Required Fields:} \texttt{Client\_ID}, \texttt{Date}, \texttt{Text} (Body content of the meeting or call).
+\end{itemize}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/bulk_upload.png}
+  \caption{Bulk Upload Interface: The entry point for legacy data. Users can upload separate CSV streams for Clients, Transactions, and Notes, which are then normalized by the system for analysis.}
+  \label{fig:upload}
+\end{figure}
+
+\section{Methodology I: The Rule-Based Engine}
+
+Parallel to the NLP processing, a deterministic engine scans incoming data for specific "Red Flag" scenarios. We chose specific heuristics that mirror real-world money laundering techniques.
+
+\subsection{1. Large Value Transaction}
+This rule triggers if a single transaction amount is $\ge$ 100,000. 
+\textit{Note on Implementation:} The current prototype evaluates the raw numerical value. This means 100,000 JPY currently triggers the alert just as 100,000 CHF would, despite the difference in value. Future versions will implement real-time currency conversion.
+
+\subsection{2. High Risk Jurisdiction}
+This rule detects cross-border flows to dangerous regions. It triggers if two conditions are met:
+\begin{itemize}
+    \item Transaction Amount $\ge$ 10,000 CHF.
+    \item A nexus to a FATF High-Risk country (Grey/Black list).
+\end{itemize}
+The system checks the Client's Nationality, Domicile, and the Counterparty Bank Code to determine the jurisdiction.
+
+\subsection{3. SMURFING (Structuring)}
+"Smurfing" is a technique where criminals break down large sums into small chunks to avoid reporting thresholds.
+\textbf{Logic:} The system scans a rolling \textbf{7-day window}. If it detects $\ge$ 10 transactions where each individual transaction is $<$ 10,000 CHF, an alert is raised.
+
+\subsection{4. PASS\_THROUGH (Money Mule)}
+This detects accounts acting as conduits. "Mules" receive illicit funds and transfer them out immediately to break the audit trail.
+\textbf{Logic:} Within a 7-day window:
+\begin{itemize}
+    \item Total Credit Turnover $>$ 50,000 CHF.
+    \item The Net Flow (Credit minus Debit) is $\le$ 10\% of the incoming volume.
+\end{itemize}
+
+\subsection{5. UNUSUAL\_PATTERN}
+This detects behavioral anomalies in established clients.
+\textbf{Logic:} Current month's volume is $\ge$ 100,000 CHF \textbf{AND} exceeds 150\% (1.5x) of the client's historical 6-month average.
+
+\section{Methodology II: Privacy-First NLP}
+
+While the rule engine detects \textit{what} happened, the NLP engine attempts to explain \textit{why} it happened.
+
+\subsection{The "In-House" vs. LLM Argument}
+A core differentiator of CRM Sentinel is the decision to forego cloud-based LLMs in favor of specialized, in-house NLP algorithms.
+
+\textbf{1. Data Privacy & Sovereignty:}
+By using local algorithms, no data ever leaves the bank's secure infrastructure. There is no risk of client names appearing in the training data of a public model (like ChatGPT), and no compliance issues regarding cross-border data transfer.
+
+\textbf{2. Hardware Efficiency:}
+Running a model like Llama-3 or GPT-4 on-premise requires significant GPU clusters (e.g., A100s), which are expensive and energy-intensive. Our specialized algorithms are optimized for the specific task of "Entity Extraction" and "Semantic Matching," allowing them to run on standard enterprise servers with minimal GPU requirements.
+
+\subsection{Visual Confidence Mapping}
+The system does not simply output "Match" or "No Match." It calculates a confidence score based on date proximity, entity matching, and semantic similarity.
+This is visualized in the UI (Figure \ref{fig:mapping}) via line thickness.
+\begin{itemize}
+    \item \textbf{Thick Blue Line:} High confidence. The note explicitly mentions the counterparty and amount.
+    \item \textbf{Thin/Faded Line:} Low confidence. The system found a potential link, but the user must verify it.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/mapping_vis.png}
+  \caption{Client Mapping Visualization: The system visualizes the NLP logic. Thick lines indicate high-confidence matches, providing context to the human reviewer.}
+  \label{fig:mapping}
+\end{figure}
+
+\section{Execution: The Decision Workflow}
+
+The application was designed to facilitate a specific workflow: "Detect, Contextualize, Decide."
+
+\subsection{Step 1: The Macro View}
+The process begins at the Dashboard (Figure \ref{fig:dashboard}). The "Financial Snapshot" provides the necessary macro-context (e.g., Total Volume: CHF 5.4M) to help CRMs judge whether a flagged transaction fits the bank's overall flow or stands out as an anomaly.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/dashboard_view.png}
+  \caption{The Dashboard: Central command displaying financial throughput and open alerts.}
+  \label{fig:dashboard}
+\end{figure}
+
+\subsection{Step 2: Alert Generation}
+When the Rule Engine triggers (e.g., for $UNUSUAL\_PATTERN$), an Alert is generated in the Alert Center (Figure \ref{fig:alerts}). This view aggregates risk across the institution, allowing team leads to prioritize work based on Risk Level (High vs. Low) or Status (Open vs. Resolved).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/alert_dashboard.png}
+  \caption{Alert Center: Aggregates risk across the institution (e.g., 94 High Risk cases), prioritizing work for the compliance team.}
+  \label{fig:alerts}
+\end{figure}
+
+\subsection{Step 3: Contextualization and Auto-Clear}
+This is the critical phase of automatic relief for the compliance team, leveraging the NLP engine's output.
+
+\begin{enumerate}
+    \item \textbf{NLP Query:} Once an Alert is generated, the system immediately queries the NLP engine: \textit{"Do we have high-confidence notes that justify these specific transactions?"}
+    \item \textbf{Auto-Clear Logic:} If the NLP engine finds a high-confidence match for \textit{all} transactions that triggered the alert, the Alert is automatically moved to a "Resolved" status. This prevents unnecessary manual reviews of activities that have already been properly documented by a CRM.
+    \item \textbf{Manual Path:} If this is not the case (e.g., if, as shown in the UI, only 2 of 18 transactions are documented), the Alert remains in the "Open" status and requires manual processing.
+\end{enumerate}
+
+\subsection{Step 4: The Manual Investigation}
+If the alert was not auto-cleared, the "Human-in-the-Loop" decision phase begins. The Compliance Officer opens the case (via the "Open" button on the Alert Details page):
+\begin{itemize}
+    \item The Officer reviews the AML rule violation (e.g., "Unusual Transaction Pattern").
+    \item The Transaction Documentation section provides a quick status overview (e.g., "11\%," indicating that "Most transactions lack supporting notes").
+    \item The Related Transactions section lists the transactions that triggered the alert, highlighting any existing high-confidence note matches (as in the example: 2 of 18 matches).
+\end{itemize}
+The Officer uses this aggregated view and all available documentation to decide whether the activity is legitimate or needs escalation to the fraud department.
+
+\subsection{Step 5: Decision Making and Audit Trail}
+To finalize the case, the Officer selects the "Dismiss Alert" option.
+To enforce accountability for this decision, the system now requires the Officer to enter a mandatory justification explaining why the case is being closed (e.g., "Activity confirmed by client meeting note from 05/05/2025" or "Verified as legitimate business growth"). This step replaces the former re-authentication requirement.
+This justification ensures that every case resolution generates a non-repudiable audit trail with a clear, business-driven rationale, streamlining the process while maintaining compliance integrity.
+
+\section{Results and Future Work}
+
+The prototype successfully demonstrated that a hybrid approach—combining strict rules with fuzzy NLP—can significantly reduce the administrative burden on compliance teams.
+
+\subsection{Results}
+\begin{itemize}
+    \item \textbf{Accuracy:} The Rule Engine successfully flagged complex patterns like "Pass-Through" accounts which are invisible when looking at single transactions.
+    \item \textbf{Efficiency:} The Mapping Visualization and Auto-Clear logic reduce the time to verify a transaction from minutes (manual search) to seconds (visual or automatic confirmation).
+\end{itemize}
+
+\subsection{Future Development}
+\begin{itemize}
+    \item \textbf{Real-Time API:} Replacing the CSV upload with ISO 20022 real-time streams.
+    \item \textbf{Feedback Loop:} Allowing CRMs to manually correct "faded" mapping lines to retrain the local NLP model.
+\end{itemize}
+
+\section{Conclusion}
+
+CRM Sentinel proves that banks do not need to compromise on privacy to leverage the power of AI. By rejecting cloud-based LLMs in favor of efficient, on-premise NLP algorithms, we provide a tool that is compliant, secure, and cost-effective. It does not replace the compliance officer; rather, it acts as a tireless assistant, filtering the noise so the expert can focus on the signal.
+
+\end{document}

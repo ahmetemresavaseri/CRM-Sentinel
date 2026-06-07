@@ -1,0 +1,6 @@
+Transaction_ID,Date,Client_ID,Amount_(CHF),Original_currency,Direction,Type,Counterparty_Bank,Counterparty_Entity
+TXN_TEST_001,2025-01-15,CL000001,15000.50,CHF,incoming,transfer,UBS,Test Company AG
+TXN_TEST_002,2025-01-16,CL000001,25000.00,EUR,outgoing,payment,Credit Suisse,Test Supplier GmbH
+TXN_TEST_003,2025-01-17,CL000002,8500.75,CHF,incoming,transfer,PostFinance,Client Corp
+TXN_TEST_004,2025-01-18,CL000001,50000.00,CHF,outgoing,payment,Raiffeisen,Vendor Ltd
+TXN_TEST_005,2025-01-19,CL000003,100000.00,USD,incoming,transfer,Julius Baer,Partner International

@@ -1,0 +1,34 @@
+# Dependencies
+node_modules
+nextjs/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js
+nextjs/.next
+nextjs/out
+nextjs/dist
+nextjs/build
+
+# Testing
+nextjs/coverage
+nextjs/.nyc_output
+
+# Misc
+.DS_Store
+*.pem
+.env*.local
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.gitlab-ci.yml
+README.md
+*.md

@@ -1,0 +1,221 @@
+###################################################
+# This is an example pipeline designed to work    #
+# with this helm chart.                           #
+# Please use it and modify it at your discretion. #
+# This example is up-to-date with the latest      #
+# version of the helm chart.                      #
+###################################################
+
+###########################################
+# INCLUDE EXTERNAL TEMPLATES
+###########################################
+include:
+  - project: 'ou-ivia-courses/webdev/2025/helm-chart'
+    ref: main
+    file:
+      - 'gitlab-ci-templates/setup-env-variables.yml'
+      - 'gitlab-ci-templates/define-trigger-rules.yml'
+
+###########################################
+# CONFIGURATION
+###########################################
+stages:
+  - prepare
+  - build
+  - deploy:db
+  - deploy:microservice
+  - deploy:app
+
+variables:
+  # Helm Timeout.
+  # Helm will wait until all deployed resources (pods,ingress,etc) show ready state
+  # Increase the timeout if you deploy things that have a long start up time.
+  HELM_TIMEOUT: 180m0s
+  #
+  # Helm chart repository.
+  HELM_CHART_MICROSERVICE: oci://${CI_REGISTRY}/ou-ivia-courses/webdev/2025/helm-chart/ivia-course-microservice-chart
+  HELM_CHART_FULLSTACK: oci://${CI_REGISTRY}/ou-ivia-courses/webdev/2025/helm-chart/ivia-course-fullstack-chart
+  HELM_CHART_VERSION: 1.0.4
+  #
+  # Set the variables POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB here.
+  # Do not use existing credentials that are used for other services! The
+  # values you enter here will be used to set up a new PostgreSQL database
+  # and can be used to access this database later.
+  POSTGRES_DB: db_test                 # ⚠️ Set the database name here.
+  POSTGRES_USER: user_test             # ⚠️ Set the database user here.
+  POSTGRES_PASSWORD: goh9aami0aeph5Ah  # ‼️ Change me to a secure password!
+  #
+  # The following variable contains the PostgreSQL connection string, which
+  # can be used to connect to the PostgreSQL database from other services in
+  # the same Kubernetes cluster (i.e., your backend service).
+  POSTGRES_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${RELEASE_NAME}-postgres.${K8S_NAMESPACE}.svc.cluster.local:5432/${POSTGRES_DB}
+
+
+###########################################
+# DOCKERIZE
+###########################################
+
+build:kaniko:
+  extends: .deployment-trigger-rules
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ "" ]
+  # Run parallel builds for multi-arch support. See: https://github.com/GoogleContainerTools/kaniko#building-the-separate-container-images
+  parallel:
+    matrix:
+      - APP_LAYER:
+        - frontend
+        - backend
+        - microservice
+  tags:
+    - runner-amd64
+  timeout: 20m
+  retry: 2
+  before_script:
+    # Copy the docker config to the kaniko executor. This config is used to authenticate with the registry.
+    - echo "${DOCKER_REGISTRY_AUTH}" > /kaniko/.docker/config.json
+  script:
+    # Define the image name.
+    - IMG="${CI_REGISTRY_IMAGE}-${APP_LAYER}:latest"
+    # Build the image and push it to the registry.
+    - >
+      /kaniko/executor
+      --context "./${APP_LAYER}"
+      --dockerfile "./Dockerfile"
+      --destination $IMG
+      --cache=true
+      --cache-ttl=168h
+      --use-new-run
+      --snapshot-mode=redo
+      --compressed-caching=true
+
+
+###########################################
+# DEPLOY
+###########################################
+
+.deploy-template:
+  extends: .deployment-trigger-rules
+  image:
+    name: alpine/helm:3.14.1
+    entrypoint: [ "bash" ]
+  before_script:
+    # Log into docker registry.
+    - echo ${CI_REGISTRY_PWD} | helm registry login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+
+deploy-postgres:
+  extends: .deploy-template
+  stage: deploy:db
+  script:
+    # To log into your PostgreSQL database from your local machine, set up a port-forwarding:
+    #   1) Use `k9s` to connect to the Kubernetes cluster.
+    #   2) Select the resource type `pod`.
+    #   3) Find the pod name of your PostgreSQL database.
+    #   4) Press `[SHIFT]+[F]` to port-forward the pod.
+    # You can now connect to the PostgreSQL database using the values of the
+    # POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB variables.
+    - >
+      helm upgrade
+      ${RELEASE_NAME}-postgres
+      ${HELM_CHART_MICROSERVICE}
+      --version ${HELM_CHART_VERSION}
+      --namespace $K8S_NAMESPACE
+      --kube-context $K8S_CONTEXT
+      --install
+      --atomic
+      -f "helm/postgres.yaml"
+      --timeout "${HELM_TIMEOUT}"
+      --set extraEnv.POSTGRES_DB="${POSTGRES_DB}"
+      --set extraEnv.POSTGRES_USER="${POSTGRES_USER}"
+      --set extraEnv.POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
+
+deploy-microservice:
+  extends: .deploy-template
+  stage: deploy:microservice
+  script:
+    - >
+      helm upgrade
+      "${RELEASE_NAME}-microservice"
+      ${HELM_CHART_MICROSERVICE}
+      --version ${HELM_CHART_VERSION}
+      --namespace $K8S_NAMESPACE
+      --kube-context $K8S_CONTEXT
+      --install
+      --atomic
+      -f "helm/microservice.yaml"
+      --timeout "${HELM_TIMEOUT}"
+      --set image.repository="${CI_REGISTRY_IMAGE}-microservice"
+      --set url="${URL_API}"
+      --set port=5173
+      --set extraEnv.CORS_ORIGINS="${URL_FRONTEND}"
+
+deploy-app:
+  extends: .deploy-template
+  stage: deploy:app
+  before_script:
+    - echo ${CI_REGISTRY_PWD} | helm registry login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+    # Install kubectl in the helm image
+    - apk add --no-cache curl
+    - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    - chmod +x kubectl
+    - mv kubectl /usr/local/bin/
+  script:
+    # Start helm in background
+    - >
+      helm upgrade
+      "${RELEASE_NAME}"
+      ${HELM_CHART_FULLSTACK}
+      --version ${HELM_CHART_VERSION}
+      --namespace $K8S_NAMESPACE
+      --kube-context $K8S_CONTEXT
+      --install
+      --atomic
+      -f "helm/app.yaml"
+      --timeout "${HELM_TIMEOUT}"
+      --debug
+      --set frontend.image.repository="${CI_REGISTRY_IMAGE}-frontend"
+      --set frontend.url="${URL_FRONTEND}"
+      --set frontend.port=3000
+      --set backend.image.repository="${CI_REGISTRY_IMAGE}-backend"
+      --set backend.url="${URL_BACKEND}"
+      --set backend.port=8080
+      --set backend.extraEnv.POSTGRES_URL="${POSTGRES_URL}"
+      --set backend.extraEnv.CORS_ORIGINS="${URL_FRONTEND}"
+      > helm_output.log 2>&1 &
+    - HELM_PID=$!
+
+    # Monitor pods while helm is running
+    - |
+      echo "Monitoring deployment progress..."
+      for i in $(seq 1 20); do
+        if ! kill -0 $HELM_PID 2>/dev/null; then
+          echo "Helm process completed"
+          break
+        fi
+        echo ""
+        echo "=== Check $i at $(date) ==="
+        kubectl get pods -n $K8S_NAMESPACE --context $K8S_CONTEXT | grep "${RELEASE_NAME}" || true
+        echo ""
+        echo "=== Backend Pod Logs (last 50 lines) ==="
+        BACKEND_POD=$(kubectl get pods -n $K8S_NAMESPACE --context $K8S_CONTEXT -o name | grep "${RELEASE_NAME}-backend" | head -1)
+        if [ -n "$BACKEND_POD" ]; then
+          kubectl logs -n $K8S_NAMESPACE --context $K8S_CONTEXT $BACKEND_POD --tail=50 || true
+        else
+          echo "Backend pod not found yet"
+        fi
+        echo ""
+        echo "=== Backend Pod Events ==="
+        if [ -n "$BACKEND_POD" ]; then
+          kubectl describe -n $K8S_NAMESPACE --context $K8S_CONTEXT $BACKEND_POD | tail -30 || true
+        fi
+        echo ""
+        sleep 15
+      done
+
+    # Wait for helm and show output
+    - wait $HELM_PID || (cat helm_output.log && exit 1)
+    - cat helm_output.log
+  environment:
+    url: https://$URL_FRONTEND
+    name: $CI_PROJECT_NAME/$CI_COMMIT_REF_SLUG

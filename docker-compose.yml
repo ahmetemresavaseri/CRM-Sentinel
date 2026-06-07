@@ -1,0 +1,93 @@
+# CRM Sentinel - Local Development Environment
+# Start all services: docker-compose up --build
+# Stop all services: docker-compose down
+# View logs: docker-compose logs -f [service_name]
+
+services:
+  # PostgreSQL Database
+  postgres:
+    container_name: crm-postgres
+    image: postgres:15
+    environment:
+      POSTGRES_DB: db_test
+      POSTGRES_USER: user_test
+      POSTGRES_PASSWORD: goh9aami0aeph5Ah
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user_test -d db_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Matching Microservice (Port 5173)
+  microservice:
+    container_name: crm-microservice
+    image: crm-microservice:latest
+    build:
+      context: ./microservice
+      dockerfile: ./Dockerfile
+      target: production
+    ports:
+      - "5173:5173"
+    environment:
+      CORS_ORIGINS: "http://localhost:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  backend:
+    container_name: crm-backend
+    image: crm-backend:latest
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+      target: production
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/src:/usr/src/app
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8080
+    environment:
+      POSTGRES_URL: "postgresql://user_test:goh9aami0aeph5Ah@host.docker.internal:5432/db_test"
+      CORS_ORIGINS: "http://localhost:3000"
+      MICROSERVICE_URL: "http://microservice:5173"
+    depends_on:
+      microservice:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Frontend (Port 3000) - Development mode with hot reload
+  frontend:
+    container_name: crm-frontend
+    image: crm-frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      # When backend is ready, change these to docker network names
+      NEXT_PUBLIC_BACKEND_URL: "http://localhost:8080"
+      NEXT_PUBLIC_MICROSERVICE_URL: "http://localhost:5173"
+    volumes:
+      # Mount source code for hot reload
+      - ./frontend/nextjs:/app
+      # Use named volumes for node_modules and .next to avoid conflicts
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+    driver: local
